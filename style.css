@@ -1,0 +1,61 @@
+:root {
+  --face-color: whitesmoke;
+  --face-height: 100vh;
+  --face-width: 100vw;
+  --eye-size: 20vw;
+  --eye-color: black;
+  --eyelid-color: whitesmoke;
+}
+
+body {
+  background-color: #fff;
+}
+
+.face {
+  background-color: var(--face-color);
+  margin: auto;
+  height: var(--face-height);
+  width: var(--face-width);
+  position: relative;
+}
+
+.face div {
+  position: absolute;
+}
+
+.eye {
+  /*animation: eye 1.04s infinite;*/
+  background-color: var(--eye-color);
+  border-radius: 100%;
+  height: var(--eye-size);
+  width: var(--eye-size);
+  bottom: calc(var(--eye-size) / 3);
+  z-index: 1;
+  transform: rotateX(0);
+}
+
+.eye.left {
+  left: calc(var(--eye-size) / 3);
+}
+
+.eye.right {
+  right: calc(var(--eye-size) / 3);
+}
+
+.eyelid {
+  background-color: var(--eyelid-color);
+  height: var(--eye-size);
+  width: calc(var(--eye-size) * 2);
+  z-index: 2;
+  transform: rotate(0deg);
+}
+
+.eyelid.upper {
+  bottom: calc(var(--eye-size) * 1);
+  left: calc(var(--eye-size) * -0.5);
+}
+
+.eyelid.lower {
+  bottom: calc(var(--eye-size) * -1);
+  left: calc(var(--eye-size) * -0.5);
+}
