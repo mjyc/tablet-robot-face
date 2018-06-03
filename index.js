@@ -1,38 +1,50 @@
-/** Blinking **/
-[...document.getElementsByClassName('eye')].map((eye) => {
-  eye.animate([
-    // keyframes
-    {transform: 'rotateX(0deg)', offset: 0.0},
-    {transform: 'rotateX(90deg)', offset: 0.05},
-    {transform: 'rotateX(0deg)', offset: 0.1},
-    {transform: 'rotateX(0deg)', offset: 1.0},
-  ], {
-    // timing options
-    duration: 3000,
-    iterations: Infinity,
-  });
-});
+const blinkRandomly = (timeoutMs) => {
+  setTimeout(() => {
+    [...document.getElementsByClassName('eye')].map((eye) => {
+      eye.animate([
+        {transform: 'rotateX(0deg)', offset: 0.0},
+        {transform: 'rotateX(90deg)', offset: 0.5},
+        {transform: 'rotateX(0deg)', offset: 1.0},
+      ], {
+        duration: 150,  // in ms
+        iterations: 1,
+      });
+    });
+    blinkRandomly((Math.random() * 6 + 2) * 1000);
+  }, timeoutMs);
+};
+
+blinkRandomly((Math.random() * 6 + 2) * 1000);
 
 /** Sad **/
-// [...document.getElementsByClassName('eyelid')].map((eyelid) => {
-//   if ([...eyelid.classList].indexOf("lower") >= 0) {
-//     return;
-//   }
 
-//   const transYDir = '-';
-//   const rotDir = ([...eyelid.parentElement.classList].indexOf("left") >= 0) ? '-' : '';
-
-//   eyelid.animate([
-//     // keyframes
-//     {transform: `translateY(0) rotate(0)`, offset: 0.0},
-//     {transform: `translateY(50px) rotate(${rotDir}20deg)`, offset: 0.2},
-//     {transform: `translateY(50px) rotate(${rotDir}20deg)`, offset: 1.0},
-//   ], {
-//     // timing options
-//     duration: 5000,
-//     iterations: Infinity
-//   });
-// });
+document.querySelector('.left .eyelid.upper').animate([
+  {transform: `translateY(0px) rotate(0)`, offset: 0.0},
+  {transform: `translateY(80px) rotate(-20deg)`, offset: 0.1},
+  {transform: `translateY(80px) rotate(-20deg)`, offset: 0.9},
+  {transform: `translateY(0px) rotate(0deg)`, offset: 1.0},
+], {
+  duration: 2000,
+  iterations: 1,
+});
+document.querySelector('.right .eyelid.upper').animate([
+  {transform: `translateY(0) rotate(0)`, offset: 0.0},
+  {transform: `translateY(80px) rotate(20deg)`, offset: 0.1},
+  {transform: `translateY(80px) rotate(20deg)`, offset: 0.9},
+  {transform: `translateY(0px) rotate(0deg)`, offset: 1.0},
+], {
+  duration: 2000,
+  iterations: 1,
+});
+[...document.querySelectorAll('.eye')].map(eye => eye.animate([
+  {transform: `translateY(0px)`, offset: 0.0},
+  {transform: `translateY(20px)`, offset: 0.1},
+  {transform: `translateY(20px)`, offset: 0.9},
+  {transform: `translateY(0px)`, offset: 1.0},
+], {
+  duration: 2000,
+  iterations: 1,
+}));
 
 /** Focus **/
 // [...document.getElementsByClassName('eyelid')].map((eyelid) => {
