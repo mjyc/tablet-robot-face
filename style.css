@@ -8,7 +8,12 @@
 }
 
 body {
-  background-color: #fff;
+  background-color: whitesmoke;
+}
+
+.buttons {
+  position: relative;
+  z-index: 3;
 }
 
 .face {
@@ -45,17 +50,18 @@ body {
 .eyelid {
   background-color: var(--eyelid-color);
   height: var(--eye-size);
-  width: calc(var(--eye-size) * 2);
+  width: calc(var(--eye-size) * 1.75);
   z-index: 2;
   transform: rotate(0deg);
 }
 
 .eyelid.upper {
   bottom: calc(var(--eye-size) * 1);
-  left: calc(var(--eye-size) * -0.5);
+  left: calc(var(--eye-size) * -0.375);
 }
 
 .eyelid.lower {
+  border-radius: 100%;
   bottom: calc(var(--eye-size) * -1);
-  left: calc(var(--eye-size) * -0.5);
+  left: calc(var(--eye-size) * -0.375);
 }

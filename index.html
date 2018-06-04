@@ -2,11 +2,21 @@
 <html lang="en" >
 
 <head>
-  <title>Robot Eyes</title>
+  <title>Expressive Tablet Face</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+  <div class="buttons">
+    <button onclick="eyes.startBlinking()">Start Blinking</button>
+    <button onclick="eyes.stopBlinking()">Stop Blinking</button>
+    <button onclick="eyes.makeFacialExpression({type: 'happy'})" >Happy</button>
+    <button onclick="eyes.makeFacialExpression({type: 'sad'})" >Sad</button>
+    <button onclick="eyes.makeFacialExpression({type: 'angry'})" >Mad</button>
+    <button onclick="eyes.makeFacialExpression({type: 'focused'})" >Focused</button>
+    <button onclick="eyes.makeFacialExpression({type: 'confused'})" >Confused</button>
+
+  </div>
   <div class="face">
     <div class="eye left">
       <div class="eyelid upper"></div>
