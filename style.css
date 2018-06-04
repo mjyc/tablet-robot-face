@@ -4,7 +4,7 @@
   --face-width: 100vw;
   --eye-size: 20vw;
   --eye-color: black;
-  --eyelid-color: gray;
+  --eyelid-color: whitesmoke;
 }
 
 body {
@@ -45,18 +45,18 @@ body {
 .eyelid {
   background-color: var(--eyelid-color);
   height: var(--eye-size);
-  width: calc(var(--eye-size) * 2);
+  width: calc(var(--eye-size) * 1.75);
   z-index: 2;
   transform: rotate(0deg);
 }
 
 .eyelid.upper {
   bottom: calc(var(--eye-size) * 1);
-  left: calc(var(--eye-size) * -0.5);
+  left: calc(var(--eye-size) * -0.375);
 }
 
 .eyelid.lower {
   border-radius: 100%;
   bottom: calc(var(--eye-size) * -1);
-  left: calc(var(--eye-size) * -0.5);
+  left: calc(var(--eye-size) * -0.375);
 }
