@@ -1,7 +1,7 @@
-class RobotEyes {
-  // constructor() {
-
-  // }
+class ExpressiveEyes {
+  constructor() {
+    this._blinkTimeoutID = null;
+  }
 
   _createKeyframes ({
     tgtTranYVal = 0,
@@ -62,7 +62,7 @@ class RobotEyes {
         }), options);
         break;
 
-      case 'mad':
+      case 'angry':
         upperLeftEyelid.animate(this._createKeyframes({
           tgtTranYVal: 50,
           tgtRotVal: 30,
@@ -124,24 +124,20 @@ class RobotEyes {
       });
     });
   }
-}
 
-const robotEyes = new RobotEyes();
-
-// Blink
-
-let blinkHandle = null;
-
-const startBlinking = (maxIntervalMs = 5000) => {
-  const blinkRandomly = (timeoutMs) => {
-    blinkHandle = setTimeout(() => {
-      robotEyes.blink();
-      blinkRandomly(Math.random() * maxIntervalMs);
-    }, timeoutMs);
+  startBlinking(maxIntervalMs = 5000) {
+    const blinkRandomly = (timeoutMs) => {
+      this._blinkTimeoutID = setTimeout(() => {
+        this.blink();
+        blinkRandomly(Math.random() * maxIntervalMs);
+      }, timeoutMs);
+    }
+    blinkRandomly(Math.random() * maxIntervalMs);
   }
-  blinkRandomly(Math.random() * maxIntervalMs);
-};
 
-const stopBlinking = () => {
-  clearTimeout(blinkHandle);
+  stopBlinking() {
+    clearTimeout(this._blinkTimeoutID);
+  }
 }
+
+const eyes = new ExpressiveEyes();

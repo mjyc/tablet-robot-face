@@ -11,6 +11,11 @@ body {
   background-color: whitesmoke;
 }
 
+.buttons {
+  position: relative;
+  z-index: 3;
+}
+
 .face {
   background-color: var(--face-color);
   margin: auto;
