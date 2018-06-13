@@ -2,4 +2,6 @@
 
 Expressive robot face designed for tablets.
 
-Open `index.html` to view or visit [demo CodePen](https://codepen.io/mjyc/pen/gKaxzQ).
+## Demo
+
+Open `index.html` or visit this [CodePen](https://codepen.io/mjyc/pen/gKaxzQ).
