@@ -1,7 +1,13 @@
 const logger = console;
 
 class EyesController {
-  constructor({
+  constructor(elements = {}) {
+    this._blinkTimeoutID = null;
+
+    this.setElements(elements);
+  }
+
+  setElements({
     leftEye,
     rightEye,
     upperLeftEyelid,
@@ -15,11 +21,8 @@ class EyesController {
     this._upperRightEyelid = upperRightEyelid;
     this._lowerLeftEyelid = lowerLeftEyelid;
     this._lowerRightEyelid = lowerRightEyelid;
-
-    this._blinkTimeoutID = null;
+    return this;
   }
-
-  // TODO: create setElements
 
   _createKeyframes ({
     tgtTranYVal = 0,
