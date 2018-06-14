@@ -8,7 +8,7 @@
 }
 
 body {
-  background-color: whitesmoke;
+  background-color: white;
 }
 
 .buttons {
@@ -20,8 +20,11 @@ body {
   background-color: var(--face-color);
   margin: auto;
   height: var(--face-height);
+  max-height: 600px;
   width: var(--face-width);
+  max-width: 960px;
   position: relative;
+  overflow: hidden;
 }
 
 .face div {
@@ -29,7 +32,6 @@ body {
 }
 
 .eye {
-  /*animation: eye 1.04s infinite;*/
   background-color: var(--eye-color);
   border-radius: 100%;
   height: var(--eye-size);

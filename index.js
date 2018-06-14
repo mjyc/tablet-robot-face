@@ -1,7 +1,25 @@
-class ExpressiveEyes {
-  constructor() {
+const logger = console;
+
+class EyesController {
+  constructor({
+    leftEye,
+    rightEye,
+    upperLeftEyelid,
+    upperRightEyelid,
+    lowerLeftEyelid,
+    lowerRightEyelid,
+  } = {}) {
+    this._leftEye = leftEye;
+    this._rightEye = rightEye;
+    this._upperLeftEyelid = upperLeftEyelid;
+    this._upperRightEyelid = upperRightEyelid;
+    this._lowerLeftEyelid = lowerLeftEyelid;
+    this._lowerRightEyelid = lowerRightEyelid;
+
     this._blinkTimeoutID = null;
   }
+
+  // TODO: create setElements
 
   _createKeyframes ({
     tgtTranYVal = 0,
@@ -11,109 +29,108 @@ class ExpressiveEyes {
   } = {}) {
     return [
       {transform: `translateY(0px) rotate(0deg)`, offset: 0.0},
-      {transform: `translateY(${tgtTranYVal}px) rotate(${tgtRotVal}deg)`, offset: enteredOffset},
-      {transform: `translateY(${tgtTranYVal}px) rotate(${tgtRotVal}deg)`, offset: exitingOffset},
+      {transform: `translateY(${tgtTranYVal}vh) rotate(${tgtRotVal}deg)`, offset: enteredOffset},
+      {transform: `translateY(${tgtTranYVal}vh) rotate(${tgtRotVal}deg)`, offset: exitingOffset},
       {transform: `translateY(0px) rotate(0deg)`, offset: 1.0},
     ];
   }
 
-  makeFacialExpression({
+  express({
     type = '',
-    // level = 3,  // 1: min, 5: max  // TODO: implement this feature
-    durationMs = 1000,
-    enterDurationMs = 75,
-    exitDurationMs = 75,
+    // level = 3,  // 1: min, 5: max
+    duration = 1000,
+    enterDuration = 75,
+    exitDuration = 75,
   }) {
     const options = {
-      duration: durationMs,
+      duration: duration,
     }
-    const upperLeftEyelid = document.querySelector('.left .eyelid.upper');
-    const upperRightEyelid = document.querySelector('.right .eyelid.upper');
-    const lowerLeftEyelid = document.querySelector('.left .eyelid.lower');
-    const lowerRightEyelid = document.querySelector('.right .eyelid.lower');
+
     switch(type) {
+      // TODO: store outputs of "animate"
       case 'happy':
-        lowerLeftEyelid.animate(this._createKeyframes({
-          tgtTranYVal: -120,
+        this._lowerLeftEyelid.animate(this._createKeyframes({
+          tgtTranYVal: -20,
           tgtRotVal: 30,
-          enteredOffset: enterDurationMs / durationMs,
-          exitingOffset: 1 - (exitDurationMs / durationMs),
+          enteredOffset: enterDuration / duration,
+          exitingOffset: 1 - (exitDuration / duration),
         }), options);
-        lowerRightEyelid.animate(this._createKeyframes({
-          tgtTranYVal: -120,
+        this._lowerRightEyelid.animate(this._createKeyframes({
+          tgtTranYVal: -20,
           tgtRotVal: -30,
-          enteredOffset: enterDurationMs / durationMs,
-          exitingOffset: 1 - (exitDurationMs / durationMs),
+          enteredOffset: enterDuration / duration,
+          exitingOffset: 1 - (exitDuration / duration),
         }), options);
         break;
 
       case 'sad':
-        upperLeftEyelid.animate(this._createKeyframes({
-          tgtTranYVal: 80,
+        this._upperLeftEyelid.animate(this._createKeyframes({
+          tgtTranYVal: 13.33,
           tgtRotVal: -20,
-          enteredOffset: enterDurationMs / durationMs,
-          exitingOffset: 1 - (exitDurationMs / durationMs),
+          enteredOffset: enterDuration / duration,
+          exitingOffset: 1 - (exitDuration / duration),
         }), options);
-        upperRightEyelid.animate(this._createKeyframes({
-          tgtTranYVal: 80,
+        this._upperRightEyelid.animate(this._createKeyframes({
+          tgtTranYVal: 13.33,
           tgtRotVal: 20,
-          enteredOffset: enterDurationMs / durationMs,
-          exitingOffset: 1 - (exitDurationMs / durationMs),
+          enteredOffset: enterDuration / duration,
+          exitingOffset: 1 - (exitDuration / duration),
         }), options);
         break;
 
       case 'angry':
-        upperLeftEyelid.animate(this._createKeyframes({
-          tgtTranYVal: 50,
+        this._upperLeftEyelid.animate(this._createKeyframes({
+          tgtTranYVal: 8.33,
           tgtRotVal: 30,
-          enteredOffset: enterDurationMs / durationMs,
-          exitingOffset: 1 - (exitDurationMs / durationMs),
+          enteredOffset: enterDuration / duration,
+          exitingOffset: 1 - (exitDuration / duration),
         }), options);
-        upperRightEyelid.animate(this._createKeyframes({
-          tgtTranYVal: 50,
+        this._upperRightEyelid.animate(this._createKeyframes({
+          tgtTranYVal: 8.33,
           tgtRotVal: -30,
-          enteredOffset: enterDurationMs / durationMs,
-          exitingOffset: 1 - (exitDurationMs / durationMs),
+          enteredOffset: enterDuration / duration,
+          exitingOffset: 1 - (exitDuration / duration),
         }), options);
         break;
 
       case 'focused':
-        [upperLeftEyelid, upperRightEyelid].map(eyelid => {
+        [this._upperLeftEyelid, this._upperRightEyelid].map(eyelid => {
           eyelid.animate(this._createKeyframes({
-            tgtTranYVal: 60,
-            enteredOffset: enterDurationMs / durationMs,
-            exitingOffset: 1 - (exitDurationMs / durationMs),
+            tgtTranYVal: 10,
+            enteredOffset: enterDuration / duration,
+            exitingOffset: 1 - (exitDuration / duration),
           }), options);
         });
-        [lowerLeftEyelid, lowerRightEyelid].map(eyelid => {
+        [this._lowerLeftEyelid, this._lowerRightEyelid].map(eyelid => {
           eyelid.animate(this._createKeyframes({
-            tgtTranYVal: -60,
-            enteredOffset: enterDurationMs / durationMs,
-            exitingOffset: 1 - (exitDurationMs / durationMs),
+            tgtTranYVal: -10,
+            enteredOffset: enterDuration / duration,
+            exitingOffset: 1 - (exitDuration / duration),
           }), options);
         });
         break;
 
       case 'confused':
-        [upperRightEyelid].map(eyelid => {
+        [this._upperRightEyelid].map(eyelid => {
           eyelid.animate(this._createKeyframes({
-            tgtTranYVal: 60,
+            tgtTranYVal: 10,
             tgtRotVal: -10,
-            enteredOffset: enterDurationMs / durationMs,
-            exitingOffset: 1 - (exitDurationMs / durationMs),
+            enteredOffset: enterDuration / duration,
+            exitingOffset: 1 - (exitDuration / duration),
           }), options);
         });
         break;
 
       default:
-        console.warn(`Invalid input type: ${type}`);
+        logger.warn(`Invalid input type: ${type}`);
     }
   }
 
   blink({
     duration = 150,  // in ms
   } = {}) {
-    return [...document.getElementsByClassName('eye')].map((eye) => {
+    // TODO: skip if _leftEye or _rightEye is not defined; or use same strategy above
+    [this._leftEye, this._rightEye].map((eye) => {
       eye.animate([
         {transform: 'rotateX(0deg)'},
         {transform: 'rotateX(90deg)'},
@@ -125,19 +142,33 @@ class ExpressiveEyes {
     });
   }
 
-  startBlinking(maxIntervalMs = 5000) {
-    const blinkRandomly = (timeoutMs) => {
+  startBlinking({
+    maxInterval = 5000
+  } = {}) {
+    if (this._blinkTimeoutID) {
+      logger.warn(`Skipping; already blinking with timeoutID: ${this._blinkTimeoutID}`);
+      return;
+    }
+    const blinkRandomly = (timeout) => {
       this._blinkTimeoutID = setTimeout(() => {
         this.blink();
-        blinkRandomly(Math.random() * maxIntervalMs);
-      }, timeoutMs);
+        blinkRandomly(Math.random() * maxInterval);
+      }, timeout);
     }
-    blinkRandomly(Math.random() * maxIntervalMs);
+    blinkRandomly(Math.random() * maxInterval);
   }
 
   stopBlinking() {
     clearTimeout(this._blinkTimeoutID);
+    this._blinkTimeoutID = null;
   }
 }
 
-const eyes = new ExpressiveEyes();
+const eyes = new EyesController({
+  leftEye: document.querySelector('.left.eye'),
+  rightEye: document.querySelector('.right.eye'),
+  upperLeftEyelid: document.querySelector('.left .eyelid.upper'),
+  upperRightEyelid: document.querySelector('.right .eyelid.upper'),
+  lowerLeftEyelid: document.querySelector('.left .eyelid.lower'),
+  lowerRightEyelid: document.querySelector('.right .eyelid.lower'),
+});
