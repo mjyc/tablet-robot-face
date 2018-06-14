@@ -47,79 +47,87 @@ class EyesController {
     }
 
     switch(type) {
-      // TODO: store outputs of "animate"
       case 'happy':
-        this._lowerLeftEyelid.animate(this._createKeyframes({
-          tgtTranYVal: -20,
-          tgtRotVal: 30,
-          enteredOffset: enterDuration / duration,
-          exitingOffset: 1 - (exitDuration / duration),
-        }), options);
-        this._lowerRightEyelid.animate(this._createKeyframes({
-          tgtTranYVal: -20,
-          tgtRotVal: -30,
-          enteredOffset: enterDuration / duration,
-          exitingOffset: 1 - (exitDuration / duration),
-        }), options);
-        break;
+        return {
+          lowerLeftEyelid: this._lowerLeftEyelid.animate(this._createKeyframes({
+            tgtTranYVal: -20,
+            tgtRotVal: 30,
+            enteredOffset: enterDuration / duration,
+            exitingOffset: 1 - (exitDuration / duration),
+          }), options),
+          lowerRightEyelid: this._lowerRightEyelid.animate(this._createKeyframes({
+            tgtTranYVal: -20,
+            tgtRotVal: -30,
+            enteredOffset: enterDuration / duration,
+            exitingOffset: 1 - (exitDuration / duration),
+          }), options),
+        };
 
       case 'sad':
-        this._upperLeftEyelid.animate(this._createKeyframes({
-          tgtTranYVal: 13.33,
-          tgtRotVal: -20,
-          enteredOffset: enterDuration / duration,
-          exitingOffset: 1 - (exitDuration / duration),
-        }), options);
-        this._upperRightEyelid.animate(this._createKeyframes({
-          tgtTranYVal: 13.33,
-          tgtRotVal: 20,
-          enteredOffset: enterDuration / duration,
-          exitingOffset: 1 - (exitDuration / duration),
-        }), options);
-        break;
+        return {
+          upperLeftEyelid: this._upperLeftEyelid.animate(this._createKeyframes({
+            tgtTranYVal: 13.33,
+            tgtRotVal: -20,
+            enteredOffset: enterDuration / duration,
+            exitingOffset: 1 - (exitDuration / duration),
+          }), options),
+          upperRightEyelid: this._upperRightEyelid.animate(this._createKeyframes({
+            tgtTranYVal: 13.33,
+            tgtRotVal: 20,
+            enteredOffset: enterDuration / duration,
+            exitingOffset: 1 - (exitDuration / duration),
+          }), options),
+        };
 
       case 'angry':
-        this._upperLeftEyelid.animate(this._createKeyframes({
-          tgtTranYVal: 8.33,
-          tgtRotVal: 30,
-          enteredOffset: enterDuration / duration,
-          exitingOffset: 1 - (exitDuration / duration),
-        }), options);
-        this._upperRightEyelid.animate(this._createKeyframes({
-          tgtTranYVal: 8.33,
-          tgtRotVal: -30,
-          enteredOffset: enterDuration / duration,
-          exitingOffset: 1 - (exitDuration / duration),
-        }), options);
-        break;
+        return {
+          upperLeftEyelid: this._upperLeftEyelid.animate(this._createKeyframes({
+            tgtTranYVal: 8.33,
+            tgtRotVal: 30,
+            enteredOffset: enterDuration / duration,
+            exitingOffset: 1 - (exitDuration / duration),
+          }), options),
+          upperRightEyelid: this._upperRightEyelid.animate(this._createKeyframes({
+            tgtTranYVal: 8.33,
+            tgtRotVal: -30,
+            enteredOffset: enterDuration / duration,
+            exitingOffset: 1 - (exitDuration / duration),
+          }), options),
+        };
 
       case 'focused':
-        [this._upperLeftEyelid, this._upperRightEyelid].map(eyelid => {
-          eyelid.animate(this._createKeyframes({
+        return {
+          upperLeftEyelid: this._upperLeftEyelid.animate(this._createKeyframes({
             tgtTranYVal: 10,
             enteredOffset: enterDuration / duration,
             exitingOffset: 1 - (exitDuration / duration),
-          }), options);
-        });
-        [this._lowerLeftEyelid, this._lowerRightEyelid].map(eyelid => {
-          eyelid.animate(this._createKeyframes({
+          }), options),
+          upperRightEyelid: this._upperRightEyelid.animate(this._createKeyframes({
+            tgtTranYVal: 10,
+            enteredOffset: enterDuration / duration,
+            exitingOffset: 1 - (exitDuration / duration),
+          }), options),
+          lowerLeftEyelid: this._lowerLeftEyelid.animate(this._createKeyframes({
             tgtTranYVal: -10,
             enteredOffset: enterDuration / duration,
             exitingOffset: 1 - (exitDuration / duration),
-          }), options);
-        });
-        break;
+          }), options),
+          lowerRightEyelid: this._lowerRightEyelid.animate(this._createKeyframes({
+            tgtTranYVal: -10,
+            enteredOffset: enterDuration / duration,
+            exitingOffset: 1 - (exitDuration / duration),
+          }), options),
+        }
 
       case 'confused':
-        [this._upperRightEyelid].map(eyelid => {
-          eyelid.animate(this._createKeyframes({
+        return {
+          upperRightEyelid: this._upperRightEyelid.animate(this._createKeyframes({
             tgtTranYVal: 10,
             tgtRotVal: -10,
             enteredOffset: enterDuration / duration,
             exitingOffset: 1 - (exitDuration / duration),
-          }), options);
-        });
-        break;
+          }), options),
+        }
 
       default:
         logger.warn(`Invalid input type: ${type}`);

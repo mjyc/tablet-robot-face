@@ -2,7 +2,7 @@
   --face-color: whitesmoke;
   --face-height: 100vh;
   --face-width: 100vw;
-  --eye-size: 20vw;
+  --eye-size: 33.33vh;
   --eye-color: black;
   --eyelid-color: whitesmoke;
 }
@@ -20,9 +20,7 @@ body {
   background-color: var(--face-color);
   margin: auto;
   height: var(--face-height);
-  max-height: 600px;
   width: var(--face-width);
-  max-width: 960px;
   position: relative;
   overflow: hidden;
 }
