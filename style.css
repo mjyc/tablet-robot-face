@@ -2,13 +2,13 @@
   --face-color: whitesmoke;
   --face-height: 100vh;
   --face-width: 100vw;
-  --eye-size: 20vw;
+  --eye-size: 33.33vh;
   --eye-color: black;
   --eyelid-color: whitesmoke;
 }
 
 body {
-  background-color: whitesmoke;
+  background-color: white;
 }
 
 .buttons {
@@ -22,6 +22,7 @@ body {
   height: var(--face-height);
   width: var(--face-width);
   position: relative;
+  overflow: hidden;
 }
 
 .face div {
@@ -29,7 +30,6 @@ body {
 }
 
 .eye {
-  /*animation: eye 1.04s infinite;*/
   background-color: var(--eye-color);
   border-radius: 100%;
   height: var(--eye-size);
