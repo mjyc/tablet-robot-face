@@ -1,7 +1,8 @@
 const logger = console;
 
-class EyesController {
-  constructor(elements = {}) {
+class EyeController {
+  constructor(elements = {}, eyeSize = '33.33vh') {
+    this._eyeSize = eyeSize;
     this._blinkTimeoutID = null;
 
     this.setElements(elements);
@@ -32,8 +33,8 @@ class EyesController {
   } = {}) {
     return [
       {transform: `translateY(0px) rotate(0deg)`, offset: 0.0},
-      {transform: `translateY(${tgtTranYVal}vh) rotate(${tgtRotVal}deg)`, offset: enteredOffset},
-      {transform: `translateY(${tgtTranYVal}vh) rotate(${tgtRotVal}deg)`, offset: exitingOffset},
+      {transform: `translateY(${tgtTranYVal}) rotate(${tgtRotVal})`, offset: enteredOffset},
+      {transform: `translateY(${tgtTranYVal}) rotate(${tgtRotVal})`, offset: exitingOffset},
       {transform: `translateY(0px) rotate(0deg)`, offset: 1.0},
     ];
   }
@@ -45,6 +46,10 @@ class EyesController {
     enterDuration = 75,
     exitDuration = 75,
   }) {
+    if (!this._leftEye) {  // assumes all elements are always set together
+      logger.warn('Skipping; eye elements are not set');
+    }
+
     const options = {
       duration: duration,
     }
@@ -53,14 +58,14 @@ class EyesController {
       case 'happy':
         return {
           lowerLeftEyelid: this._lowerLeftEyelid.animate(this._createKeyframes({
-            tgtTranYVal: -20,
-            tgtRotVal: 30,
+            tgtTranYVal: `calc(${this._eyeSize} * -2 / 3)`,
+            tgtRotVal: `30deg`,
             enteredOffset: enterDuration / duration,
             exitingOffset: 1 - (exitDuration / duration),
           }), options),
           lowerRightEyelid: this._lowerRightEyelid.animate(this._createKeyframes({
-            tgtTranYVal: -20,
-            tgtRotVal: -30,
+            tgtTranYVal: `calc(${this._eyeSize} * -2 / 3)`,
+            tgtRotVal: `-30deg`,
             enteredOffset: enterDuration / duration,
             exitingOffset: 1 - (exitDuration / duration),
           }), options),
@@ -69,14 +74,14 @@ class EyesController {
       case 'sad':
         return {
           upperLeftEyelid: this._upperLeftEyelid.animate(this._createKeyframes({
-            tgtTranYVal: 13.33,
-            tgtRotVal: -20,
+            tgtTranYVal: `calc(${this._eyeSize} * 1 / 3)`,
+            tgtRotVal: `-20deg`,
             enteredOffset: enterDuration / duration,
             exitingOffset: 1 - (exitDuration / duration),
           }), options),
           upperRightEyelid: this._upperRightEyelid.animate(this._createKeyframes({
-            tgtTranYVal: 13.33,
-            tgtRotVal: 20,
+            tgtTranYVal: `calc(${this._eyeSize} * 1 / 3)`,
+            tgtRotVal: `20deg`,
             enteredOffset: enterDuration / duration,
             exitingOffset: 1 - (exitDuration / duration),
           }), options),
@@ -85,14 +90,14 @@ class EyesController {
       case 'angry':
         return {
           upperLeftEyelid: this._upperLeftEyelid.animate(this._createKeyframes({
-            tgtTranYVal: 8.33,
-            tgtRotVal: 30,
+            tgtTranYVal: `calc(${this._eyeSize} * 1 / 4)`,
+            tgtRotVal: `30deg`,
             enteredOffset: enterDuration / duration,
             exitingOffset: 1 - (exitDuration / duration),
           }), options),
           upperRightEyelid: this._upperRightEyelid.animate(this._createKeyframes({
-            tgtTranYVal: 8.33,
-            tgtRotVal: -30,
+            tgtTranYVal: `calc(${this._eyeSize} * 1 / 4)`,
+            tgtRotVal: `-30deg`,
             enteredOffset: enterDuration / duration,
             exitingOffset: 1 - (exitDuration / duration),
           }), options),
@@ -101,22 +106,22 @@ class EyesController {
       case 'focused':
         return {
           upperLeftEyelid: this._upperLeftEyelid.animate(this._createKeyframes({
-            tgtTranYVal: 10,
+            tgtTranYVal: `calc(${this._eyeSize} * 1 / 3)`,
             enteredOffset: enterDuration / duration,
             exitingOffset: 1 - (exitDuration / duration),
           }), options),
           upperRightEyelid: this._upperRightEyelid.animate(this._createKeyframes({
-            tgtTranYVal: 10,
+            tgtTranYVal: `calc(${this._eyeSize} * 1 / 3)`,
             enteredOffset: enterDuration / duration,
             exitingOffset: 1 - (exitDuration / duration),
           }), options),
           lowerLeftEyelid: this._lowerLeftEyelid.animate(this._createKeyframes({
-            tgtTranYVal: -10,
+            tgtTranYVal: `calc(${this._eyeSize} * -1 / 3)`,
             enteredOffset: enterDuration / duration,
             exitingOffset: 1 - (exitDuration / duration),
           }), options),
           lowerRightEyelid: this._lowerRightEyelid.animate(this._createKeyframes({
-            tgtTranYVal: -10,
+            tgtTranYVal: `calc(${this._eyeSize} * -1 / 3)`,
             enteredOffset: enterDuration / duration,
             exitingOffset: 1 - (exitDuration / duration),
           }), options),
@@ -125,8 +130,8 @@ class EyesController {
       case 'confused':
         return {
           upperRightEyelid: this._upperRightEyelid.animate(this._createKeyframes({
-            tgtTranYVal: 10,
-            tgtRotVal: -10,
+            tgtTranYVal: `calc(${this._eyeSize} * 1 / 3)`,
+            tgtRotVal: `-10deg`,
             enteredOffset: enterDuration / duration,
             exitingOffset: 1 - (exitDuration / duration),
           }), options),
@@ -140,7 +145,10 @@ class EyesController {
   blink({
     duration = 150,  // in ms
   } = {}) {
-    // TODO: skip if _leftEye or _rightEye is not defined; or use same strategy above
+    if (!this._leftEye) {  // assumes all elements are always set together
+      logger.warn('Skipping; eye elements are not set');
+    }
+
     [this._leftEye, this._rightEye].map((eye) => {
       eye.animate([
         {transform: 'rotateX(0deg)'},
@@ -175,7 +183,7 @@ class EyesController {
   }
 }
 
-const eyes = new EyesController({
+const eyes = new EyeController({
   leftEye: document.querySelector('.left.eye'),
   rightEye: document.querySelector('.right.eye'),
   upperLeftEyelid: document.querySelector('.left .eyelid.upper'),
