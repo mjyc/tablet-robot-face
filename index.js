@@ -1,5 +1,3 @@
-const logger = console;
-
 class EyeController {
   constructor(elements = {}, eyeSize = '33.33vh') {
     this._eyeSize = eyeSize;
@@ -7,6 +5,9 @@ class EyeController {
 
     this.setElements(elements);
   }
+
+  get leftEye() { return this._leftEye; }
+  get rightEye() { return this._rightEye; }
 
   setElements({
     leftEye,
@@ -47,12 +48,13 @@ class EyeController {
     exitDuration = 75,
   }) {
     if (!this._leftEye) {  // assumes all elements are always set together
-      logger.warn('Skipping; eye elements are not set');
+      console.warn('Eye elements are not set; return;');
+      return;
     }
 
     const options = {
       duration: duration,
-    }
+    };
 
     switch(type) {
       case 'happy':
@@ -138,7 +140,7 @@ class EyeController {
         }
 
       default:
-        logger.warn(`Invalid input type: ${type}`);
+        console.warn(`Invalid input type=${type}`);
     }
   }
 
@@ -146,7 +148,8 @@ class EyeController {
     duration = 150,  // in ms
   } = {}) {
     if (!this._leftEye) {  // assumes all elements are always set together
-      logger.warn('Skipping; eye elements are not set');
+      console.warn('Eye elements are not set; return;');
+      return;
     }
 
     [this._leftEye, this._rightEye].map((eye) => {
@@ -165,7 +168,7 @@ class EyeController {
     maxInterval = 5000
   } = {}) {
     if (this._blinkTimeoutID) {
-      logger.warn(`Skipping; already blinking with timeoutID: ${this._blinkTimeoutID}`);
+      console.warn(`Already blinking with timeoutID=${this._blinkTimeoutID}; return;`);
       return;
     }
     const blinkRandomly = (timeout) => {
@@ -180,6 +183,24 @@ class EyeController {
   stopBlinking() {
     clearTimeout(this._blinkTimeoutID);
     this._blinkTimeoutID = null;
+  }
+
+  setEyePosition(eyeElem, x, y, isRight = false) {
+    if (!eyeElem) {  // assumes all elements are always set together
+      console.warn('Invalid inputs ', eyeElem, x, y, '; retuning');
+      return;
+    }
+
+    if (!!x) {
+      if (!isRight) {
+        eyeElem.style.left = `calc(${this._eyeSize} / 3 * 2 * ${x})`;
+      } else {
+        eyeElem.style.right = `calc(${this._eyeSize} / 3 * 2 * ${1-x})`;
+      }
+    }
+    if (!!y) {
+      eyeElem.style.bottom = `calc(${this._eyeSize} / 3 * 2 * ${1-y})`;
+    }
   }
 }
 
