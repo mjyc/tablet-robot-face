@@ -2,7 +2,7 @@
   --face-color: whitesmoke;
   --face-height: 100vh;
   --face-width: 100vw;
-  --eye-size: 33.33vh;
+  --eye-size: 33.33vmin;
   --eye-color: black;
   --eyelid-color: whitesmoke;
 }
